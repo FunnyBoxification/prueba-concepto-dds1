@@ -10,6 +10,7 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.windows.Dialog
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -82,6 +83,12 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
 	def void nuevaMateria() {
 		this.openDialog(new NuevaMateriaWindow(this))
+	}
+	
+	def openDialog(Dialog<?> dialog) {
+		//Esto es igual a continuations man
+		dialog.onAccept[|modelObject.searchMaterias]
+		dialog.open
 	}
 	
 	
