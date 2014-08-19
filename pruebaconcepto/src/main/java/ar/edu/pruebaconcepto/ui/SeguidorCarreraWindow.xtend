@@ -9,6 +9,7 @@ import ar.edu.pruebaconcepto.domain.Materia
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.bindings.NotNullObservable
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -63,21 +64,25 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		var editNota = new Button(actionsNotasPanel)
 			.setCaption("Editar")
 			.onClick [|] //termina
+			
+		new Button(actionsNotasPanel)
+			.setCaption("+")
+			.onClick[ | this.nuevaMateria() ]
+		
+		var eliminarNota = new Button(actionsNotasPanel)
+			.setCaption("-")
+			.onClick[ | ]
+		
+		//Si no hay ninguna nota seleccionada entonces que se deshabiliten los botones	
+		var elementoSeleccionado = new NotNullObservable("notaSeleccionada")
+		editNota.bindEnabled(elementoSeleccionado)
+		eliminarNota.bindEnabled(elementoSeleccionado)
+		
 	}
 	
-	/* actionsPanel = new Panel(mainPanel)
-		actionsPanel.setLayout(new HorizontalLayout)
-		var edit = new Button(actionsPanel)
-			.setCaption("Editar")
-			.onClick [ | this.modificarCelular]
-
-		var remove = new Button(actionsPanel)
-			.setCaption("Borrar")
-			.onClick [ | modelObject.eliminarCelularSeleccionado]
- 
-		// Deshabilitar los botones si no hay ningún elemento seleccionado en la grilla.
-		var elementSelected = new NotNullObservable("celularSeleccionado")
-		remove.bindEnabled(elementSelected)
-		edit.bindEnabled(elementSelected)*/
+	def void nuevaMateria() {
+		this.openDialog(new NuevaMateriaWindow(this))
+	}
+	
 	
 }
