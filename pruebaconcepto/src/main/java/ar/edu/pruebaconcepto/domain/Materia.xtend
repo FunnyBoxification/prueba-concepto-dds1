@@ -14,7 +14,9 @@ class Materia extends Entity {
 	@Property UbicacionMateria ubicacionMateria
 	
 	
-	
+	override toString() {
+		nombre
+	}
 	
 	
 	

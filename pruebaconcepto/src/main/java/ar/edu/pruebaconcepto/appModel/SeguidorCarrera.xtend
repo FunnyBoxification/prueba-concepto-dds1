@@ -19,5 +19,10 @@ class SeguidorCarrera implements Serializable {
 		ApplicationContext.getInstance.getSingleton(typeof(Materia))
 	}
 	
+	def void searchMaterias() {
+		this._materias = this.getHomeMaterias.allInstances();
+		return
+	}
+	
 	
 }
