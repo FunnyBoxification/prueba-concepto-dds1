@@ -11,6 +11,7 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class SeguidorCarrera implements Serializable {
 	@Property List<Materia> materias
+	@Property List<Nota> notas
 	@Property Materia materiaSeleccionada
 	@Property Nota notaSeleccionada
 	
