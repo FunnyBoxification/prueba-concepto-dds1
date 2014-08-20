@@ -18,6 +18,11 @@ class Materia extends Entity {
 		nombre
 	}
 	
+	def validar() {
+		
+// laTER
+	}
+	
 	
 	
 }

@@ -1,18 +1,18 @@
 package ar.edu.pruebaconcepto.ui
 
-import org.uqbar.arena.windows.SimpleWindow
 import ar.edu.pruebaconcepto.appModel.SeguidorCarrera
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.tables.Table
 import ar.edu.pruebaconcepto.domain.Materia
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.bindings.NotNullObservable
-import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.layout.ColumnLayout
 import ar.edu.pruebaconcepto.domain.Nota
+import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.layout.VerticalLayout
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -22,7 +22,11 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	}
 	
 	override protected addActions(Panel actionsPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		new Button(actionsPanel)
+			.setCaption("Nueva Materia")
+			.onClick[ | this.nuevaMateria() ] 
+			.setAsDefault
+			.disableOnError
 	}
 	
 	override def createMainTemplate(Panel mainPanel) {
@@ -31,7 +35,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 
 		super.createMainTemplate(mainPanel) 
 		
-		this.createMateriassGrid(mainPanel)
+		this.createNotasGrid(mainPanel)
 		this.createGridActions(mainPanel)                     
 	}
 	
@@ -42,11 +46,14 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 
 	
 	override def void createFormPanel(Panel mainPanel) {
+		var materiasPanel = new Panel(mainPanel)
+		materiasPanel.setLayout(new VerticalLayout)
 		
-		/*val materiasPanel = new Panel(mainPanel)
-		materiasPanel.setLayout(new ColumnLayout(2))*/
+		this.createMateriasGrid(materiasPanel)
 		
-		//Le mando el grid de notas en el mainPanel a ver que onda
+	}
+	
+	def createNotasGrid(Panel mainPanel) {
 		var table = new Table<Nota>(mainPanel,typeof(Nota))
 		table.heigth = 200
 		table.width = 200
@@ -77,7 +84,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	}
 	
 	
-	def protected createMateriassGrid(Panel mainPanel) {
+	def protected createMateriasGrid(Panel mainPanel) {
 		var table = new Table<Materia>(mainPanel, typeof(Materia))
 		table.heigth = 400
 		table.width = 100
@@ -104,7 +111,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 			
 		new Button(actionsNotasPanel)
 			.setCaption("+")
-			.onClick[ | this.nuevaMateria() ]
+			.onClick[ | this.nuevaMateria() ] //	MAL!! NUEVA NOTA!!!
 		
 		var eliminarNota = new Button(actionsNotasPanel)
 			.setCaption("-")

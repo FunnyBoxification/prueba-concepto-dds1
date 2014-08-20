@@ -36,10 +36,6 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 		validarMateriasDuplicadas(materia)
 	}
 	
-	def validar() {
-//		LATER BITCHES
-	}
-
 	def void validarMateriasDuplicadas(Materia materia) {
 		val nombre = materia.nombre
 		if (!allInstances.filter[mat|this.match(nombre, materia.nombre) ].toList.isEmpty) {
