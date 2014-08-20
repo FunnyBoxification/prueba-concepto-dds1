@@ -4,6 +4,9 @@ import org.uqbar.commons.model.CollectionBasedHome
 import org.uqbar.commons.utils.Observable
 import ar.edu.pruebaconcepto.domain.Materia
 import java.util.List
+import ar.edu.pruebaconcepto.domain.Nota
+import ar.edu.pruebaconcepto.domain.UbicacionMateria
+import org.uqbar.commons.model.UserException
 
 @Observable
 class HomeMaterias extends CollectionBasedHome<Materia> {
@@ -16,9 +19,44 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 		
 	}
 	
-	def void create(String descripcion, float costo, boolean requiereResumenCuenta) {
-	
+	def void create(String pNombre, Integer pAnioCursada, Boolean pFinal, String pProfe, List<Nota> pNotas, UbicacionMateria ubicacion ) {
+		var materia = new Materia()
+		materia.nombre = pNombre
+		materia.anioCursada = pAnioCursada
+		materia.finalAprobado = pFinal
+		materia.profesor = pProfe
+		materia.notas = pNotas
+		materia.ubicacionMateria = ubicacion	
+		
+		this.create(materia)
 	}
+
+	override void validateCreate(Materia materia) {
+		materia.validar()
+		validarMateriasDuplicadas(materia)
+	}
+	
+	def validar() {
+//		LATER BITCHES
+	}
+
+	def void validarMateriasDuplicadas(Materia materia) {
+		val nombre = materia.nombre
+		if (!allInstances.filter[mat|this.match(nombre, materia.nombre) ].toList.isEmpty) {
+			throw new UserException("Ya existe una materia con el nombre: " + nombre)
+		}
+	}
+	
+	def match(Object expectedValue, Object realValue) {
+		if (expectedValue == null) {
+			return true
+		}
+		if (realValue == null) {
+			return false
+		}
+		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
+	}
+	
 
 	def List<Materia> getMaterias() {
 		allInstances	
