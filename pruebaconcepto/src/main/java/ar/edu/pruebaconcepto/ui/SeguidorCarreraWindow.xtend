@@ -105,13 +105,10 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 			textBoxProfe.bindValueToProperty("materiaSeleccionada.profesor")
 			textBoxProfe.setWidth(150)
 			
-			//Falta bindear Ubicaciones de materias con Selector ACA
-			new Label(col2Panel).text = "Ubicacion materia: "
-			var textBoxUbicMat = new TextBox(col2Panel)
-			textBoxUbicMat.setWidth(150)
 			
+			new Label(col2Panel).text = "Ubicacion materia: "
 			val selectorUbicacion = new Selector<UbicacionMateria>(col2Panel)
-			selectorUbicacion.allowNull(false)
+			selectorUbicacion.allowNull(true)
 			selectorUbicacion.bindValueToProperty("materiaSeleccionada.ubicacionMateria")
 			var propiedadUbicacion = selectorUbicacion.bindItems(new ObservableProperty( modelObject.homeUbicacionMaterias, "ubicacionMaterias"))
 			propiedadUbicacion.adapter = new PropertyAdapter(typeof(UbicacionMateria), "descripcionEntera")
