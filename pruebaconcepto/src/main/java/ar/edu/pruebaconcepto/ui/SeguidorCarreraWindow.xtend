@@ -57,46 +57,6 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		this.createLeftPanel(new Panel(gralPanel))
 		this.createRightPanel(new Panel(gralPanel))
 		
-		/*
-		 * TODO ver si hay que borrar.
-		 * mantuve el codigo por si no les gustan los cambios :P
-		 */
-		
-//		this.createMateriasGrid(mainPanel)
-//		var labelNomMateria = new Label(mainPanel)
-//		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
-//		labelNomMateria.fontSize = 16
-//		
-//		var panel = new Panel(mainPanel)
-//		panel.layout = new HorizontalLayout()
-//		
-//		new Label(panel).text = "A?o"
-//		var textBoxAnio = new TextBox(panel)
-//		textBoxAnio.heigth = 10
-//		textBoxAnio.bindValueToProperty("materiaSeleccionada.anioCursada")
-//		
-//		new Label(panel).text = "Final aprobado"
-//		var checkFinal = new CheckBox(panel)
-//		checkFinal.bindValueToProperty("materiaSeleccionada.finalAprobado")
-//		
-//		new Label(panel).text = "Profesor"
-//		var textBoxProfe = new TextBox(panel)
-//		textBoxProfe.bindValueToProperty("materiaSeleccionada.profesor")
-//		
-//		//Falta Ubicaciones de materias con Selector ACA
-//		
-//		new Label(mainPanel).text = "Notas cursada"
-//		
-//		var materiasPanel = new Panel(mainPanel)
-//		materiasPanel.setLayout(new ColumnLayout(2))
-//		
-////		this.createMateriasGrid(materiasPanel)
-////		var labelNomMateria = new Label(materiasPanel)
-////		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
-//		this.createNotasGrid(materiasPanel)
-//		this.createGridActions(materiasPanel) 
-		
-		
 	}
 	
 	def createLeftPanel(Panel leftPanel){
@@ -189,17 +149,6 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		
 	}
 	
-	
-//	def protected createMateriasGrid(Panel mainPanel) {
-//		var table = new Table<Materia>(mainPanel, typeof(Materia))
-//		table.heigth = 100
-//		table.width = 100
-//		table.bindItemsToProperty("materias")
-//		table.bindSelectionToProperty("materiaSeleccionada")
-//		this.describeMateriasGrid(table)
-//		//table.
-//
-//	}
 	
 	def describeMateriasGrid(Table<Materia> table) {
 		new Column<Materia>(table)

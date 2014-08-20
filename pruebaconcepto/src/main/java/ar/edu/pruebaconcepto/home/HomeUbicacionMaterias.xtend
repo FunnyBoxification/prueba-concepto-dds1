@@ -14,7 +14,8 @@ class HomeUbicacionMaterias extends CollectionBasedHome<UbicacionMateria> {
 	
 	def void init() { 
 		
-		this.create("1er Cuatrimestre",2)		
+		this.create("1er Cuatrimestre",2)	
+		this.create("2do Cuatrimestre",5)	
 	}
 	
 	def void create(String a, Integer b) {
