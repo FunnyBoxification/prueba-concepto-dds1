@@ -16,8 +16,8 @@ import ar.edu.pruebaconcepto.domain.Nota
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
-	new(WindowOwner parent, SeguidorCarrera seguidorCarrera) {
-		super(parent, seguidorCarrera)
+	new(WindowOwner parent) {
+		super(parent, new SeguidorCarrera)
 		modelObject.searchMaterias()
 	}
 	
@@ -45,6 +45,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		
 		/*val materiasPanel = new Panel(mainPanel)
 		materiasPanel.setLayout(new ColumnLayout(2))*/
+		
 		//Le mando el grid de notas en el mainPanel a ver que onda
 		var table = new Table<Nota>(mainPanel,typeof(Nota))
 		table.heigth = 200
