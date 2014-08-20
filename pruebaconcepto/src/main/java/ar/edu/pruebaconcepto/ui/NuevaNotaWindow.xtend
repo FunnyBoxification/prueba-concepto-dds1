@@ -7,6 +7,10 @@ import org.uqbar.arena.widgets.Panel
 import ar.edu.pruebaconcepto.home.HomeMaterias
 import org.uqbar.commons.utils.ApplicationContext
 import ar.edu.pruebaconcepto.domain.Materia
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.CheckBox
 
 class NuevaNotaWindow extends Dialog<Nota> {
 	

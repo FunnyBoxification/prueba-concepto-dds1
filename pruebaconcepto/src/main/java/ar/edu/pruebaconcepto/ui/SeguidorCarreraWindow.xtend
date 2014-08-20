@@ -7,16 +7,15 @@ import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.CheckBox
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -26,7 +25,6 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	}
 	
 	override protected addActions(Panel actionsPanel) {
-		
 		new Button(actionsPanel)
 			.setCaption("Nueva Materia")
 			.onClick[ | this.nuevaMateria() ] 
@@ -39,54 +37,121 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		taskDescription = "Seguidor de carrera"
 		
 		super.createMainTemplate(mainPanel) 
-		this.createMateriasGrid(mainPanel)
-		
-				                     
+		                     
 	}
 	
 	
 	override def void createFormPanel(Panel mainPanel) {
-		//this.createMateriasGrid(mainPanel)
-		var labelNomMateria = new Label(mainPanel)
-		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
-		labelNomMateria.fontSize = 16
+		var gralPanel = new Panel(mainPanel) 
+		gralPanel.layout = new ColumnLayout(2)
 		
-		var panel = new Panel(mainPanel)
-		panel.layout = new HorizontalLayout()
+		/*
+		 * A cada "zona" le paso un panel nuevo, y dentro de cada metodo se arma el layout como se quiera.
+		 * Se hace aca el new Panel() para que sea claro la agregacion de dos nuevos paneles
+		 * a la organizacion de la pantalla
+		 */
+		this.createLeftPanel(new Panel(gralPanel))
+		this.createRightPanel(new Panel(gralPanel))
 		
-		new Label(panel).text = "Año"
-		var textBoxAnio = new TextBox(panel)
-		textBoxAnio.heigth = 10
-		textBoxAnio.bindValueToProperty("materiaSeleccionada.anioCursada")
+		/*
+		 * TODO ver si hay que borrar.
+		 * mantuve el codigo por si no les gustan los cambios :P
+		 */
 		
-		new Label(panel).text = "Final aprobado"
-		var checkFinal = new CheckBox(panel)
-		checkFinal.bindValueToProperty("materiaSeleccionada.finalAprobado")
-		
-		new Label(panel).text = "Profesor"
-		var textBoxProfe = new TextBox(panel)
-		textBoxProfe.bindValueToProperty("materiaSeleccionada.profesor")
-		
-		//Falta Ubicaciones de materias con Selector ACA
-		
-		new Label(mainPanel).text = "Notas cursada"
-		
-		var materiasPanel = new Panel(mainPanel)
-		materiasPanel.setLayout(new ColumnLayout(2))
-		
-//		this.createMateriasGrid(materiasPanel)
-//		var labelNomMateria = new Label(materiasPanel)
+//		this.createMateriasGrid(mainPanel)
+//		var labelNomMateria = new Label(mainPanel)
 //		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
-		this.createNotasGrid(materiasPanel)
-		this.createGridActions(materiasPanel) 
+//		labelNomMateria.fontSize = 16
+//		
+//		var panel = new Panel(mainPanel)
+//		panel.layout = new HorizontalLayout()
+//		
+//		new Label(panel).text = "A?o"
+//		var textBoxAnio = new TextBox(panel)
+//		textBoxAnio.heigth = 10
+//		textBoxAnio.bindValueToProperty("materiaSeleccionada.anioCursada")
+//		
+//		new Label(panel).text = "Final aprobado"
+//		var checkFinal = new CheckBox(panel)
+//		checkFinal.bindValueToProperty("materiaSeleccionada.finalAprobado")
+//		
+//		new Label(panel).text = "Profesor"
+//		var textBoxProfe = new TextBox(panel)
+//		textBoxProfe.bindValueToProperty("materiaSeleccionada.profesor")
+//		
+//		//Falta Ubicaciones de materias con Selector ACA
+//		
+//		new Label(mainPanel).text = "Notas cursada"
+//		
+//		var materiasPanel = new Panel(mainPanel)
+//		materiasPanel.setLayout(new ColumnLayout(2))
+//		
+////		this.createMateriasGrid(materiasPanel)
+////		var labelNomMateria = new Label(materiasPanel)
+////		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
+//		this.createNotasGrid(materiasPanel)
+//		this.createGridActions(materiasPanel) 
 		
 		
 	}
 	
+	def createLeftPanel(Panel leftPanel){
+		var table = new Table<Materia>(leftPanel, typeof(Materia))
+		table.heigth = 300
+		table.width = 100
+		table.bindItemsToProperty("materias")
+		table.bindSelectionToProperty("materiaSeleccionada")
+		this.describeMateriasGrid(table)
+		//table.
+	}
+	
+	def createRightPanel(Panel rightPanel){
+		this.createDatosMateria(new Panel(rightPanel))
+		new Label(rightPanel).text = "Notas cursada"
+		this.createNotasGrid(rightPanel)
+		this.createGridActions(rightPanel)
+	}
+	
+	def createDatosMateria(Panel datosMatPanel){
+		var labelNomMateria = new Label(datosMatPanel)
+		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
+		labelNomMateria.fontSize = 16
+		
+		var datosPanel = new Panel(datosMatPanel)
+		/*
+		 * Lo que sigue se que es complicado de leer pero fue la unica manera
+		 * que se me ocurrio que quedara mas o menos como en el ejmplo
+		 */		
+		var horizPanel = new Panel(datosPanel)
+		horizPanel.layout = new HorizontalLayout()
+		
+			new Label(horizPanel).text = "Año"
+			var textBoxAnio = new TextBox(horizPanel)
+			textBoxAnio.bindValueToProperty("materiaSeleccionada.anioCursada")
+			
+			new Label(horizPanel).text = "Final aprobado"
+			var checkFinal = new CheckBox(horizPanel)
+			checkFinal.bindValueToProperty("materiaSeleccionada.finalAprobado")
+		
+		var col2Panel = new Panel(datosPanel)
+		col2Panel.layout = new ColumnLayout(2)
+		
+			new Label(col2Panel).text = "Profesor: "
+			var textBoxProfe = new TextBox(col2Panel)
+			textBoxProfe.bindValueToProperty("materiaSeleccionada.profesor")
+			textBoxProfe.setWidth(150)
+			
+			//Falta bindear Ubicaciones de materias con Selector ACA
+			new Label(col2Panel).text = "Ubicacion materia: "
+			var textBoxUbicMat = new TextBox(col2Panel)
+			textBoxUbicMat.setWidth(150)
+			
+	}
+	
 	def createNotasGrid(Panel mainPanel) {
 		var table = new Table<Nota>(mainPanel,typeof(Nota))
-		table.heigth = 200
-		table.width = 400
+		table.heigth = 150
+		table.width = 250
 		table.bindItemsToProperty("materiaSeleccionada.notas")
 		table.bindValueToProperty("notaSeleccionada")
 		this.describeNotasGrid(table)
@@ -114,16 +179,16 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	}
 	
 	
-	def protected createMateriasGrid(Panel mainPanel) {
-		var table = new Table<Materia>(mainPanel, typeof(Materia))
-		table.heigth = 100
-		table.width = 100
-		table.bindItemsToProperty("materias")
-		table.bindSelectionToProperty("materiaSeleccionada")
-		this.describeMateriasGrid(table)
-		//table.
-
-	}
+//	def protected createMateriasGrid(Panel mainPanel) {
+//		var table = new Table<Materia>(mainPanel, typeof(Materia))
+//		table.heigth = 100
+//		table.width = 100
+//		table.bindItemsToProperty("materias")
+//		table.bindSelectionToProperty("materiaSeleccionada")
+//		this.describeMateriasGrid(table)
+//		//table.
+//
+//	}
 	
 	def describeMateriasGrid(Table<Materia> table) {
 		new Column<Materia>(table)
