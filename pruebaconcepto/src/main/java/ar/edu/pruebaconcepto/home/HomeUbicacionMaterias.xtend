@@ -14,6 +14,13 @@ class HomeUbicacionMaterias extends CollectionBasedHome<UbicacionMateria> {
 	
 	def void init() { 
 		
+		this.create("1er Cuatrimestre",2)		
+	}
+	
+	def void create(String a, Integer b) {
+		var ubicacion = new UbicacionMateria()
+		ubicacion.anioMateria = b
+		ubicacion.cuandoSeDa = a
 	}
 	
 	override protected getCriterio(UbicacionMateria example) {
