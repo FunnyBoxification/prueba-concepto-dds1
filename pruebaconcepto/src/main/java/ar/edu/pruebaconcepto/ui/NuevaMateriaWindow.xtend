@@ -10,6 +10,7 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import com.uqbar.commons.StringUtils
+import org.uqbar.arena.widgets.Button
 
 class NuevaMateriaWindow extends Dialog<Materia> {
 	
@@ -24,29 +25,25 @@ class NuevaMateriaWindow extends Dialog<Materia> {
 		new TextBox(panel)
 			.withFilter[event | StringUtils::isAlphanumericSpace(event.potentialTextResult)]
 			.bindValueToProperty("nombre")
+					
+		
 	}
 	
-	/*
-	 	val form = new Panel(mainPanel)
-		form.layout = new ColumnLayout(2)
-		new Label(form).text = "Número"
-		new TextBox(form)
-			.withFilter [ event | StringUtils::isNumeric(event.potentialTextResult) ]
-			.bindValueToProperty("numero")
-		
-		new Label(form).text = "Nombre del cliente"
-		new TextBox(form).bindValueToProperty("nombre")
-		new Label(form).text = "Modelo del aparato"
-		val selectorModelo = new Selector<Modelo>(form)
-		selectorModelo.allowNull(false)
-		selectorModelo.bindValueToProperty("modeloCelular")
-		var propiedadModelos = selectorModelo.bindItems(new ObservableProperty(homeModelos, "modelos"))
-		propiedadModelos.adapter = new PropertyAdapter(typeof(Modelo), "descripcionEntera")
-		new Label(form).text = "Recibe resumen cuenta en domicilio"
-		var checkResumen = new CheckBox(form)
-		checkResumen.bindEnabledToProperty("habilitaResumenCuenta")
-		checkResumen.bindValueToProperty("recibeResumenCuenta")
-	 */
+	override def executeTask() {
+		homeMaterias().create(modelObject)
+		super.executeTask()
+	}
+	
+	override protected void addActions(Panel actions) {
+		new Button(actions)
+			.setCaption("Aceptar")
+			.onClick [|this.accept]
+			.setAsDefault.disableOnError
+
+		new Button(actions) //
+			.setCaption("Cancelar")
+			.onClick [|this.cancel]
+	}
 	
 	def HomeMaterias homeMaterias() {
 		ApplicationContext.instance.getSingleton(typeof(Materia)) as HomeMaterias
