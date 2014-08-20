@@ -22,6 +22,9 @@ class SeguidorCarrera implements Serializable {
 	
 	def void searchMaterias() {
 		this._materias = this.getHomeMaterias.allInstances();
+		materiaSeleccionada = null
+		notaSeleccionada = null
+		notas = null
 		return
 	}
 	

@@ -12,8 +12,8 @@ import org.uqbar.arena.windows.WindowOwner
 
 class EditarNotaWindow extends Dialog<Nota>{
 	
-	new(WindowOwner owner) {
-		super(owner, new Nota)
+	new(WindowOwner owner, Nota nota) {
+		super(owner, nota)
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {

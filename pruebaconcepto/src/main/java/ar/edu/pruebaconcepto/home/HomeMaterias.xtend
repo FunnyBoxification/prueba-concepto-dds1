@@ -18,6 +18,7 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 
 	def void init() {
 		this.create("caca",2,true,"Pepe",new LinkedList<Nota>, new UbicacionMateria())
+		this.create("ASDASD",2,true,"Pepe",new LinkedList<Nota>, new UbicacionMateria())
 	}
 	
 	def void create(String pNombre, Integer pAnioCursada, Boolean pFinal, String pProfe, List<Nota> pNotas, UbicacionMateria ubicacion ) {
@@ -39,22 +40,11 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 	
 	def void validarMateriasDuplicadas(Materia materia) {
 		val nombre = materia.nombre
-		if (!(allInstances.filter[mat|this.match(nombre, materia.nombre) ].toList.isEmpty)) {
+		if (!(allInstances.filter[mat|mat.nombre.equalsIgnoreCase(nombre) ].toList.isEmpty)) {
 			throw new UserException("Ya existe una materia con el nombre: " + nombre)
 		}
 	}
 	
-	def match(Object expectedValue, Object realValue) {
-		if (expectedValue == null) {
-			return true
-		}
-		if (realValue == null) {
-			return false
-		}
-		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
-	}
-	
-
 	def List<Materia> getMaterias() {
 		allInstances	
 	}

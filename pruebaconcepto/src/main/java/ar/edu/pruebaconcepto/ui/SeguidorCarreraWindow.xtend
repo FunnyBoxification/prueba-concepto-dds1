@@ -7,14 +7,13 @@ import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Label
-import java.awt.Color
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -40,11 +39,6 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	}
 	
 	
-	/**
-	 * Panel principal de la prueba de concepto
-	 */
-
-	
 	override def void createFormPanel(Panel mainPanel) {
 		var materiasPanel = new Panel(mainPanel)
 		materiasPanel.setLayout(new ColumnLayout(2))
@@ -52,8 +46,6 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		this.createMateriasGrid(materiasPanel)
 		var labelNomMateria = new Label(materiasPanel)
 		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
-		//labelNomMateria.text = "CACCAACCA"
-		labelNomMateria.foreground = Color::BLUE
 		this.createNotasGrid(materiasPanel)
 		this.createGridActions(materiasPanel) 
 		
@@ -96,7 +88,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		table.heigth = 400
 		table.width = 100
 		table.bindItemsToProperty("materias")
-		table.bindValueToProperty("materiaSeleccionada")
+		table.bindSelectionToProperty("materiaSeleccionada")
 		this.describeMateriasGrid(table)
 		//table.
 
@@ -132,7 +124,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	}
 	
 	def editarNota() {
-		//this.openDialog(new EditarNotaWindow(this))
+		this.openDialog(new EditarNotaWindow(this,modelObject.notaSeleccionada))
 	}
 	
 	def void nuevaNota() {
