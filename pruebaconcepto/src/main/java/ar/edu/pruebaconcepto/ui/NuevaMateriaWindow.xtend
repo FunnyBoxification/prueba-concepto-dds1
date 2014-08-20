@@ -11,6 +11,9 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import com.uqbar.commons.StringUtils
 import org.uqbar.arena.widgets.Button
+import ar.edu.pruebaconcepto.domain.UbicacionMateria
+import java.util.LinkedList
+import ar.edu.pruebaconcepto.domain.Nota
 
 class NuevaMateriaWindow extends Dialog<Materia> {
 	
@@ -37,7 +40,7 @@ class NuevaMateriaWindow extends Dialog<Materia> {
 	}
 	
 	override def executeTask() {
-		homeMaterias().create(modelObject.nombre,1,false,"Tu vieja",null,null)
+		homeMaterias().create(modelObject.nombre,1,false,"Tu vieja",new LinkedList<Nota>,new UbicacionMateria)
 		super.executeTask()
 	}
 	
