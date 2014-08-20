@@ -18,7 +18,7 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 
 	def void init() {
 		this.create("caca",2,true,"Pepe",new LinkedList<Nota>, new UbicacionMateria())
-		this.create("ASDASD",2,true,"Pepe",new LinkedList<Nota>, new UbicacionMateria())
+		this.create("ASDASD",6,true,"Pepe",new LinkedList<Nota>, new UbicacionMateria())
 	}
 	
 	def void create(String pNombre, Integer pAnioCursada, Boolean pFinal, String pProfe, List<Nota> pNotas, UbicacionMateria ubicacion ) {

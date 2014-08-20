@@ -14,6 +14,9 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.CheckBox
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -33,19 +36,44 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	override def createMainTemplate(Panel mainPanel) {
 		this.title = "Seguidor de Carrera"   
 		taskDescription = "Seguidor de carrera"
-
+		
 		super.createMainTemplate(mainPanel) 
 		                     
 	}
 	
 	
 	override def void createFormPanel(Panel mainPanel) {
+		this.createMateriasGrid(mainPanel)
+		var labelNomMateria = new Label(mainPanel)
+		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
+		labelNomMateria.fontSize = 16
+		
+		var panel = new Panel(mainPanel)
+		panel.layout = new HorizontalLayout()
+		
+		new Label(panel).text = "Año"
+		var textBoxAnio = new TextBox(panel)
+		textBoxAnio.heigth = 10
+		textBoxAnio.bindValueToProperty("materiaSeleccionada.anioCursada")
+		
+		new Label(panel).text = "Final aprobado"
+		var checkFinal = new CheckBox(panel)
+		checkFinal.bindValueToProperty("materiaSeleccionada.finalAprobado")
+		
+		new Label(panel).text = "Profesor"
+		var textBoxProfe = new TextBox(panel)
+		textBoxProfe.bindValueToProperty("materiaSeleccionada.profesor")
+		
+		//Falta Ubicaciones de materias con Selector ACA
+		
+		new Label(mainPanel).text = "Notas cursada"
+		
 		var materiasPanel = new Panel(mainPanel)
 		materiasPanel.setLayout(new ColumnLayout(2))
 		
-		this.createMateriasGrid(materiasPanel)
-		var labelNomMateria = new Label(materiasPanel)
-		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
+//		this.createMateriasGrid(materiasPanel)
+//		var labelNomMateria = new Label(materiasPanel)
+//		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
 		this.createNotasGrid(materiasPanel)
 		this.createGridActions(materiasPanel) 
 		
@@ -85,7 +113,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
 	def protected createMateriasGrid(Panel mainPanel) {
 		var table = new Table<Materia>(mainPanel, typeof(Materia))
-		table.heigth = 400
+		table.heigth = 100
 		table.width = 100
 		table.bindItemsToProperty("materias")
 		table.bindSelectionToProperty("materiaSeleccionada")
