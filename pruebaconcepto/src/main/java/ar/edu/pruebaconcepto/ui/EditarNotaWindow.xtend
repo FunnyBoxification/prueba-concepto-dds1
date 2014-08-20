@@ -1,14 +1,14 @@
 package ar.edu.pruebaconcepto.ui
 
 import ar.edu.pruebaconcepto.domain.Nota
-import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.widgets.CheckBox
-import org.uqbar.arena.widgets.Button
 
 class EditarNotaWindow extends Dialog<Nota>{
 	
@@ -17,12 +17,14 @@ class EditarNotaWindow extends Dialog<Nota>{
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
+		this.title = "Editar Nota"
 		val panel = new Panel(mainPanel)
-		panel.layout = new VerticalLayout()
+		panel.layout = new ColumnLayout(2)
 		new Label(panel).text = "Fecha: "
 		new TextBox(panel).bindValueToProperty("fecha")
 		new Label(panel).text = "Descripcion: " 
 		new TextBox(panel).bindValueToProperty("descripcion")
+		new Label(panel).text = "Aprobado: "
 		new CheckBox(panel).bindValueToProperty("aprobado")
 				
 	}
