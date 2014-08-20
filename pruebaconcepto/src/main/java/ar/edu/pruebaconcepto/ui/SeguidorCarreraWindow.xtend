@@ -16,6 +16,10 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import ar.edu.pruebaconcepto.domain.UbicacionMateria
+import org.uqbar.arena.widgets.Selector
+import org.uqbar.arena.bindings.ObservableProperty
+import org.uqbar.arena.bindings.PropertyAdapter
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -133,8 +137,8 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 			var checkFinal = new CheckBox(horizPanel)
 			checkFinal.bindValueToProperty("materiaSeleccionada.finalAprobado")
 		
-		var col2Panel = new Panel(datosPanel)
-		col2Panel.layout = new ColumnLayout(2)
+			var col2Panel = new Panel(datosPanel)
+			col2Panel.layout = new ColumnLayout(2)
 		
 			new Label(col2Panel).text = "Profesor: "
 			var textBoxProfe = new TextBox(col2Panel)
@@ -145,6 +149,13 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 			new Label(col2Panel).text = "Ubicacion materia: "
 			var textBoxUbicMat = new TextBox(col2Panel)
 			textBoxUbicMat.setWidth(150)
+			
+			val selectorUbicacion = new Selector<UbicacionMateria>(col2Panel)
+			selectorUbicacion.allowNull(false)
+			selectorUbicacion.bindValueToProperty("materiaSeleccionada.ubicacionMateria")
+			var propiedadUbicacion = selectorUbicacion.bindItems(new ObservableProperty( modelObject.homeUbicacionMaterias, "modelos"))
+			propiedadUbicacion.adapter = new PropertyAdapter(typeof(UbicacionMateria), "descripcionEntera")
+			
 			
 	}
 	
