@@ -18,6 +18,13 @@ class NuevaMateriaWindow extends Dialog<Materia> {
 		super(owner, new Materia)
 	}
 	
+	
+	override def createMainTemplate(Panel mainPanel) {
+		this.title = "Nueva Materia"   
+		
+		super.createMainTemplate(mainPanel) 
+		                     
+	}
 	override protected createFormPanel(Panel mainPanel) {
 		val panel = new Panel(mainPanel)
 		panel.layout = new ColumnLayout(2)

@@ -7,6 +7,7 @@ import java.util.List
 import ar.edu.pruebaconcepto.domain.Nota
 import ar.edu.pruebaconcepto.domain.UbicacionMateria
 import org.uqbar.commons.model.UserException
+import java.util.LinkedList
 
 @Observable
 class HomeMaterias extends CollectionBasedHome<Materia> {
@@ -16,7 +17,7 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 	}
 
 	def void init() {
-		
+		this.create("caca",2,true,"Pepe",new LinkedList<Nota>, new UbicacionMateria())
 	}
 	
 	def void create(String pNombre, Integer pAnioCursada, Boolean pFinal, String pProfe, List<Nota> pNotas, UbicacionMateria ubicacion ) {
@@ -38,7 +39,7 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 	
 	def void validarMateriasDuplicadas(Materia materia) {
 		val nombre = materia.nombre
-		if (!allInstances.filter[mat|this.match(nombre, materia.nombre) ].toList.isEmpty) {
+		if (!(allInstances.filter[mat|this.match(nombre, materia.nombre) ].toList.isEmpty)) {
 			throw new UserException("Ya existe una materia con el nombre: " + nombre)
 		}
 	}

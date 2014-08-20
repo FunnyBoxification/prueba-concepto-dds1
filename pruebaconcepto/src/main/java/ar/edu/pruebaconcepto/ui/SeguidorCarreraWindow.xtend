@@ -13,6 +13,8 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.widgets.Label
+import java.awt.Color
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -48,6 +50,10 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		materiasPanel.setLayout(new ColumnLayout(2))
 		
 		this.createMateriasGrid(materiasPanel)
+		var labelNomMateria = new Label(materiasPanel)
+		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
+		//labelNomMateria.text = "CACCAACCA"
+		labelNomMateria.foreground = Color::BLUE
 		this.createNotasGrid(materiasPanel)
 		this.createGridActions(materiasPanel) 
 		
@@ -58,7 +64,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		var table = new Table<Nota>(mainPanel,typeof(Nota))
 		table.heigth = 200
 		table.width = 400
-		table.bindItemsToProperty("notas")
+		table.bindItemsToProperty("materiaSeleccionada.notas")
 		table.bindValueToProperty("notaSeleccionada")
 		this.describeNotasGrid(table)
 		
@@ -126,7 +132,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	}
 	
 	def editarNota() {
-		this.openDialog(new EditarNotaWindow(this))
+		//this.openDialog(new EditarNotaWindow(this))
 	}
 	
 	def void nuevaNota() {
