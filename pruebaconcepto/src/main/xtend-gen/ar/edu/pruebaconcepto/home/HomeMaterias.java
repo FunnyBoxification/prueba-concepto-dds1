@@ -21,17 +21,22 @@ public class HomeMaterias extends CollectionBasedHome<Materia> {
   
   public void init() {
     LinkedList<Nota> n1 = new LinkedList<Nota>();
+    LinkedList<Nota> n2 = new LinkedList<Nota>();
     Nota nota = new Nota();
+    Nota nota1 = new Nota();
     UbicacionMateria ubic = new UbicacionMateria();
     ubic.setAnioMateria(Integer.valueOf(2013));
     ubic.setCuandoSeDa("1 cuatri");
     nota.setFecha("10/04/2014");
     nota.setDescripcion("1 parcial");
     nota.setAprobado(Boolean.valueOf(true));
+    nota1.setFecha("11/5/2010");
+    nota1.setDescripcion("tp");
+    nota1.setAprobado(Boolean.valueOf(false));
     n1.add(nota);
+    n2.add(nota1);
     this.create("caca", Integer.valueOf(2), Boolean.valueOf(true), "Pepe", n1, ubic);
-    LinkedList<Nota> _linkedList = new LinkedList<Nota>();
-    this.create("ASDASD", Integer.valueOf(6), Boolean.valueOf(true), "Pepe", _linkedList, ubic);
+    this.create("ASDASD", Integer.valueOf(6), Boolean.valueOf(true), "Pepe", n2, ubic);
   }
   
   public void create(final String pNombre, final Integer pAnioCursada, final Boolean pFinal, final String pProfe, final List<Nota> pNotas, final UbicacionMateria ubicacion) {

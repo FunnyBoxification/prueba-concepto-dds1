@@ -19,16 +19,22 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 	def void init() {
 		/*para ver que ande el edit y el - */
 		var n1 = new LinkedList<Nota>
+		var n2 = new LinkedList<Nota>
 		var nota = new Nota
+		var nota1= new Nota
 		var ubic= new UbicacionMateria
 		ubic.anioMateria=2013
 		ubic.cuandoSeDa="1 cuatri"
 		nota.fecha="10/04/2014"
 		nota.descripcion="1 parcial"
 		nota.aprobado=true
+		nota1.fecha="11/5/2010"
+		nota1.descripcion="tp"
+		nota1.aprobado=false
 		n1.add(nota)
+		n2.add(nota1)
 		this.create("caca",2,true,"Pepe",n1, ubic)
-		this.create("ASDASD",6,true,"Pepe",new LinkedList<Nota>, ubic)
+		this.create("ASDASD",6,true,"Pepe",n2, ubic)
 	}
 	
 	def void create(String pNombre, Integer pAnioCursada, Boolean pFinal, String pProfe, List<Nota> pNotas, UbicacionMateria ubicacion ) {
