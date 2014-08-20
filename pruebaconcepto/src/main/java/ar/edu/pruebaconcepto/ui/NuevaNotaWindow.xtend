@@ -18,6 +18,7 @@ class NuevaNotaWindow extends Dialog<Nota> {
 		super(owner, new Nota)
 	}
 	
+	
 	override def createMainTemplate(Panel mainPanel) {
 		this.title = "Nueva Nota"   
 		
@@ -31,7 +32,15 @@ class NuevaNotaWindow extends Dialog<Nota> {
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		this.title = "Editar Nota"
+		val panel = new Panel(mainPanel)
+		panel.layout = new ColumnLayout(2)
+		new Label(panel).text = "Fecha: "
+		new TextBox(panel).bindValueToProperty("fecha")
+		new Label(panel).text = "Descripcion: " 
+		new TextBox(panel).bindValueToProperty("descripcion")
+		new Label(panel).text = "Aprobado: "
+		new CheckBox(panel).bindValueToProperty("aprobado")
 	}
 	
 	def HomeMaterias homeMaterias() {
