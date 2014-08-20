@@ -4,6 +4,7 @@ import ar.edu.pruebaconcepto.appModel.SeguidorCarrera
 import ar.edu.pruebaconcepto.domain.Materia
 import ar.edu.pruebaconcepto.domain.Nota
 import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
@@ -12,7 +13,6 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.layout.VerticalLayout
 
 class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
@@ -34,9 +34,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		taskDescription = "Seguidor de carrera"
 
 		super.createMainTemplate(mainPanel) 
-		
-		this.createNotasGrid(mainPanel)
-		this.createGridActions(mainPanel)                     
+		                     
 	}
 	
 	
@@ -47,16 +45,19 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	
 	override def void createFormPanel(Panel mainPanel) {
 		var materiasPanel = new Panel(mainPanel)
-		materiasPanel.setLayout(new VerticalLayout)
+		materiasPanel.setLayout(new ColumnLayout(2))
 		
 		this.createMateriasGrid(materiasPanel)
+		this.createNotasGrid(materiasPanel)
+		this.createGridActions(materiasPanel) 
+		
 		
 	}
 	
 	def createNotasGrid(Panel mainPanel) {
 		var table = new Table<Nota>(mainPanel,typeof(Nota))
 		table.heigth = 200
-		table.width = 200
+		table.width = 400
 		table.bindItemsToProperty("notas")
 		table.bindValueToProperty("notaSeleccionada")
 		this.describeNotasGrid(table)
@@ -68,17 +69,17 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		
 		new Column<Nota>(table) //
 			.setTitle("Fecha")
-			.setFixedSize(150)
+			//.setFixedSize(50)
 			.bindContentsToProperty("fecha")
 
 		new Column<Nota>(table) //
 			.setTitle("Descripcion")
-			.setFixedSize(100)
+			//.setFixedSize(150)
 			.bindContentsToProperty("descripcion")
 
 		new Column<Nota>(table)
 			.setTitle("Aprobado")
-			.setFixedSize(150)
+			//.setFixedSize(50)
 			.bindContentsToTransformer([ nota | if(nota.aprobado) "Si" else "No"])
 		
 	}
@@ -107,21 +108,29 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		actionsNotasPanel.setLayout(new HorizontalLayout)
 		var editNota = new Button(actionsNotasPanel)
 			.setCaption("Editar")
-			.onClick [|] //termina
+			.onClick [| this.editarNota()] //termina
 			
 		new Button(actionsNotasPanel)
 			.setCaption("+")
-			.onClick[ | this.nuevaMateria() ] //	MAL!! NUEVA NOTA!!!
+			.onClick[ | this.nuevaNota() ] 
 		
 		var eliminarNota = new Button(actionsNotasPanel)
 			.setCaption("-")
-			.onClick[ | ]
+			.onClick[ | modelObject.notas.remove(modelObject.notaSeleccionada) ]
 		
 		//Si no hay ninguna nota seleccionada entonces que se deshabiliten los botones	
 		var elementoSeleccionado = new NotNullObservable("notaSeleccionada")
 		editNota.bindEnabled(elementoSeleccionado)
 		eliminarNota.bindEnabled(elementoSeleccionado)
 		
+	}
+	
+	def editarNota() {
+		this.openDialog(new EditarNotaWindow(this))
+	}
+	
+	def void nuevaNota() {
+		this.openDialog(new NuevaNotaWindow(this))
 	}
 	
 	def void nuevaMateria() {
