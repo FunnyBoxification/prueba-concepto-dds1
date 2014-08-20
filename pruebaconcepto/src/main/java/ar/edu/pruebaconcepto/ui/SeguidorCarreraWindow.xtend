@@ -26,6 +26,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 	}
 	
 	override protected addActions(Panel actionsPanel) {
+		
 		new Button(actionsPanel)
 			.setCaption("Nueva Materia")
 			.onClick[ | this.nuevaMateria() ] 
@@ -38,12 +39,14 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		taskDescription = "Seguidor de carrera"
 		
 		super.createMainTemplate(mainPanel) 
-		                     
+		this.createMateriasGrid(mainPanel)
+		
+				                     
 	}
 	
 	
 	override def void createFormPanel(Panel mainPanel) {
-		this.createMateriasGrid(mainPanel)
+		//this.createMateriasGrid(mainPanel)
 		var labelNomMateria = new Label(mainPanel)
 		labelNomMateria.bindValueToProperty("materiaSeleccionada.nombre")
 		labelNomMateria.fontSize = 16

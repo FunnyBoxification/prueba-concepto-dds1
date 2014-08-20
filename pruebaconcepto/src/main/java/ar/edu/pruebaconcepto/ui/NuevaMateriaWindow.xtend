@@ -37,7 +37,7 @@ class NuevaMateriaWindow extends Dialog<Materia> {
 	}
 	
 	override def executeTask() {
-		homeMaterias().create(modelObject.nombre,null,null,null,null,null)
+		homeMaterias().create(modelObject.nombre,1,false,"Tu vieja",null,null)
 		super.executeTask()
 	}
 	
