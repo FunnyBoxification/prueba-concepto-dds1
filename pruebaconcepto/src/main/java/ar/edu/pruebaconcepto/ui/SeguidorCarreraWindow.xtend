@@ -107,11 +107,17 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 			
 			
 			new Label(col2Panel).text = "Ubicacion materia: "
-			val selectorUbicacion = new Selector<UbicacionMateria>(col2Panel)
+			new Selector(col2Panel).allowNull(false) => [
+			width = 100
+			bindItemsToProperty("homeUbicacionMaterias.ubicacionMaterias")
+			bindValueToProperty("materiaSeleccionada.ubicacionMateria")
+		]
+			/* 
+			var selectorUbicacion = new Selector<UbicacionMateria>(col2Panel)
 			selectorUbicacion.allowNull(true)
 			selectorUbicacion.bindValueToProperty("materiaSeleccionada.ubicacionMateria")
 			var propiedadUbicacion = selectorUbicacion.bindItems(new ObservableProperty( modelObject.homeUbicacionMaterias, "ubicacionMaterias"))
-			propiedadUbicacion.adapter = new PropertyAdapter(typeof(UbicacionMateria), "descripcionEntera")
+			propiedadUbicacion.adapter = new PropertyAdapter(typeof(UbicacionMateria), "descripcionEntera")*/
 			
 			
 	}

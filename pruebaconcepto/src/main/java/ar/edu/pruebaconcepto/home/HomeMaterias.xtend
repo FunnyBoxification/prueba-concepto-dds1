@@ -33,8 +33,8 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 		nota1.aprobado=false
 		n1.add(nota)
 		n2.add(nota1)
-		this.create("caca",2,true,"Pepe",n1, ubic)
-		this.create("ASDASD",6,true,"Pepe",n2, ubic)
+		this.create("Ing y Soc",2,true,"Pepe",n1, ubic)
+		this.create("Discreta",6,true,"Granado",n2, ubic)
 	}
 	
 	def void create(String pNombre, Integer pAnioCursada, Boolean pFinal, String pProfe, List<Nota> pNotas, UbicacionMateria ubicacion ) {
