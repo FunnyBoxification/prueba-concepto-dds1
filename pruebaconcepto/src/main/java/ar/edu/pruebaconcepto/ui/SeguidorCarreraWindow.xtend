@@ -36,7 +36,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		this.title = "Seguidor de Carrera"   
 		taskDescription = "Seguidor de carrera"
 		
-		super.createMainTemplate(mainPanel) 
+		super.createMainTemplate(mainPanel)
 		                     
 	}
 	
@@ -210,7 +210,7 @@ class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
 		
 		var eliminarNota = new Button(actionsNotasPanel)
 			.setCaption("-")
-			.onClick[ | modelObject.notas.remove(modelObject.notaSeleccionada) ]
+			.onClick[ | modelObject.eliminarNota ]
 		
 		//Si no hay ninguna nota seleccionada entonces que se deshabiliten los botones	
 		var elementoSeleccionado = new NotNullObservable("notaSeleccionada")

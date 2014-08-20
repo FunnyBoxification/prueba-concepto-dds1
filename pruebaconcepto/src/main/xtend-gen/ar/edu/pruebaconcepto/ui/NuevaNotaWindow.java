@@ -3,18 +3,20 @@ package ar.edu.pruebaconcepto.ui;
 import ar.edu.pruebaconcepto.domain.Materia;
 import ar.edu.pruebaconcepto.domain.Nota;
 import ar.edu.pruebaconcepto.home.HomeMaterias;
+import ar.edu.pruebaconcepto.ui.EditarNotaWindow;
 import org.uqbar.arena.layout.ColumnLayout;
+import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.CheckBox;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
-import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.commons.utils.ApplicationContext;
+import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ControlBuilder;
 
 @SuppressWarnings("all")
-public class NuevaNotaWindow extends Dialog<Nota> {
+public class NuevaNotaWindow extends EditarNotaWindow {
   public NuevaNotaWindow(final WindowOwner owner) {
     super(owner, new Nota());
   }
@@ -24,12 +26,8 @@ public class NuevaNotaWindow extends Dialog<Nota> {
     super.createMainTemplate(mainPanel);
   }
   
-  public void executeTask() {
-    super.executeTask();
-  }
-  
   protected void createFormPanel(final Panel mainPanel) {
-    this.setTitle("Editar Nota");
+    this.setTitle("Nueva Nota");
     final Panel panel = new Panel(mainPanel);
     ColumnLayout _columnLayout = new ColumnLayout(2);
     panel.setLayout(_columnLayout);
@@ -45,6 +43,27 @@ public class NuevaNotaWindow extends Dialog<Nota> {
     _label_2.setText("Aprobado: ");
     CheckBox _checkBox = new CheckBox(panel);
     _checkBox.<ControlBuilder>bindValueToProperty("aprobado");
+  }
+  
+  protected void addActions(final Panel actions) {
+    Button _button = new Button(actions);
+    Button _setCaption = _button.setCaption("Aceptar");
+    final Action _function = new Action() {
+      public void execute() {
+        NuevaNotaWindow.this.accept();
+      }
+    };
+    Button _onClick = _setCaption.onClick(_function);
+    Button _setAsDefault = _onClick.setAsDefault();
+    _setAsDefault.disableOnError();
+    Button _button_1 = new Button(actions);
+    Button _setCaption_1 = _button_1.setCaption("Cancelar");
+    final Action _function_1 = new Action() {
+      public void execute() {
+        NuevaNotaWindow.this.cancel();
+      }
+    };
+    _setCaption_1.onClick(_function_1);
   }
   
   public HomeMaterias homeMaterias() {

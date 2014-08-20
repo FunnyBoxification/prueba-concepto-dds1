@@ -11,8 +11,9 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Button
 
-class NuevaNotaWindow extends Dialog<Nota> {
+class NuevaNotaWindow extends EditarNotaWindow {
 	
 	new(WindowOwner owner) {
 		super(owner, new Nota)
@@ -26,13 +27,9 @@ class NuevaNotaWindow extends Dialog<Nota> {
 		                     
 	}
 	
-	override def executeTask() {
-
-		super.executeTask()
-	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		this.title = "Editar Nota"
+		this.title = "Nueva Nota"
 		val panel = new Panel(mainPanel)
 		panel.layout = new ColumnLayout(2)
 		new Label(panel).text = "Fecha: "
@@ -43,6 +40,18 @@ class NuevaNotaWindow extends Dialog<Nota> {
 		new CheckBox(panel).bindValueToProperty("aprobado")
 	}
 	
+	override protected void addActions(Panel actions) {
+		new Button(actions)
+			.setCaption("Aceptar")
+			.onClick [|this.accept]
+			.setAsDefault.disableOnError
+
+		new Button(actions) //
+			.setCaption("Cancelar")
+			.onClick [|this.cancel]
+	}
+	
+		
 	def HomeMaterias homeMaterias() {
 		ApplicationContext.instance.getSingleton(typeof(Materia)) as HomeMaterias
 	}

@@ -65,4 +65,13 @@ public class SeguidorCarrera implements Serializable {
     this.setNotas(null);
     return;
   }
+  
+  public void eliminarNota() {
+    Materia _materiaSeleccionada = this.getMateriaSeleccionada();
+    List<Nota> _notas = _materiaSeleccionada.getNotas();
+    Nota _notaSeleccionada = this.getNotaSeleccionada();
+    _notas.remove(_notaSeleccionada);
+    this.searchMaterias();
+    this.setNotaSeleccionada(null);
+  }
 }

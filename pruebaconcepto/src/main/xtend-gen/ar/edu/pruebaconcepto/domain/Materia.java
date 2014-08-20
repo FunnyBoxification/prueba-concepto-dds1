@@ -2,8 +2,10 @@ package ar.edu.pruebaconcepto.domain;
 
 import ar.edu.pruebaconcepto.domain.Nota;
 import ar.edu.pruebaconcepto.domain.UbicacionMateria;
+import com.google.common.base.Objects;
 import java.util.List;
 import org.uqbar.commons.model.Entity;
+import org.uqbar.commons.model.UserException;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
@@ -73,7 +75,11 @@ public class Materia extends Entity {
     return this.getNombre();
   }
   
-  public Object validar() {
-    return null;
+  public void validar() {
+    String _nombre = this.getNombre();
+    boolean _equals = Objects.equal(_nombre, null);
+    if (_equals) {
+      throw new UserException("Debe ingresar una materia");
+    }
   }
 }

@@ -3,6 +3,7 @@ package ar.edu.pruebaconcepto.domain
 import java.util.List
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.UserException
 
 @Observable 
 class Materia extends Entity {
@@ -19,8 +20,9 @@ class Materia extends Entity {
 	}
 	
 	def validar() {
-		
-// laTER
+		if (nombre == null) {
+			throw new UserException("Debe ingresar una materia")
+		}
 	}
 	
 	

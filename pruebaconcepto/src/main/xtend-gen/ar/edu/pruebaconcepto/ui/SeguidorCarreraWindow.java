@@ -7,7 +7,6 @@ import ar.edu.pruebaconcepto.ui.EditarNotaWindow;
 import ar.edu.pruebaconcepto.ui.NuevaMateriaWindow;
 import ar.edu.pruebaconcepto.ui.NuevaNotaWindow;
 import com.uqbar.commons.collections.Transformer;
-import java.util.List;
 import org.uqbar.arena.bindings.NotNullObservable;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
@@ -190,10 +189,7 @@ public class SeguidorCarreraWindow extends SimpleWindow<SeguidorCarrera> {
     final Action _function_2 = new Action() {
       public void execute() {
         SeguidorCarrera _modelObject = SeguidorCarreraWindow.this.getModelObject();
-        List<Nota> _notas = _modelObject.getNotas();
-        SeguidorCarrera _modelObject_1 = SeguidorCarreraWindow.this.getModelObject();
-        Nota _notaSeleccionada = _modelObject_1.getNotaSeleccionada();
-        _notas.remove(_notaSeleccionada);
+        _modelObject.eliminarNota();
       }
     };
     Button eliminarNota = _setCaption_2.onClick(_function_2);
